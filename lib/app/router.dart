@@ -4,6 +4,9 @@ import 'package:mmc/app/navigation_shell.dart';
 import 'package:mmc/features/home/presentation/home_page.dart';
 import 'package:mmc/features/journal/presentation/journal_page.dart';
 import 'package:mmc/features/journal/presentation/entry_page.dart';
+import 'package:mmc/features/program/exercise.dart';
+import 'package:mmc/features/program/exercise_form_page.dart';
+import 'package:mmc/features/program/exercise_library_page.dart';
 import 'package:mmc/features/roadmap/presentation/roadmap_page.dart';
 
 final router = GoRouter(
@@ -13,7 +16,32 @@ final router = GoRouter(
           NavigationShellPage(navigationShell: navigationShell),
       branches: [
         StatefulShellBranch(
-          routes: [GoRoute(path: '/', builder: (_, _) => const HomePage())],
+          routes: [
+            GoRoute(
+              path: '/',
+              builder: (_, _) => const HomePage(),
+              routes: [
+                GoRoute(
+                  path: 'exercise_library',
+                  builder: (_, _) => const ExerciseLibraryPage(),
+                  routes: [
+                    GoRoute(
+                      path: 'create_exercise',
+                      builder: (_, _) =>
+                          const ExerciseFormPage(titleText: "Create Exercise"),
+                    ),
+                    GoRoute(
+                      path: 'edit_exercise',
+                      builder: (context, state) => ExerciseFormPage(
+                        titleText: "Edit Exercise",
+                        exercise: state.extra as Exercise,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
         StatefulShellBranch(
           routes: [
@@ -35,5 +63,3 @@ final router = GoRouter(
     ),
   ],
 );
-
-

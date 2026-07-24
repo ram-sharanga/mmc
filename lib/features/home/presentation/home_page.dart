@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: const Text('Home')),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => context.push('/'),
+          onPressed: () => context.push('/exercise_library'),
           child: const Text('Go To Program'),
         ),
       ),
